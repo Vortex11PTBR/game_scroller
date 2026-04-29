@@ -38,6 +38,10 @@ public class ShopScreenUI : MonoBehaviour
     private const string ProductRemoveAds   = "remove_ads";   // R$ 9,99 — remove anúncios (permanente)
     private const string ProductStarterPack = "starter_pack"; // R$ 2,99 — pack iniciante (200 moedas + 5 vidas)
 
+    // Chaves de PlayerPrefs para itens permanentes
+    private const string PrefKeyRemoveAds      = "remove_ads";
+    private const string PrefKeyStarterPack    = "starter_pack_purchased";
+
     // -----------------------------------------------------------------------
     // Pacotes de Moedas (configuração de UI)
     // -----------------------------------------------------------------------
@@ -457,7 +461,7 @@ public class ShopScreenUI : MonoBehaviour
     private void OnBuyStarterPackPressed()
     {
         // Verifica se já foi comprado (starter pack é vendido apenas uma vez)
-        if (PlayerPrefs.GetInt("starter_pack_purchased", 0) == 1)
+        if (PlayerPrefs.GetInt(PrefKeyStarterPack, 0) == 1)
         {
             NotificationSystem.Show("Pack já adquirido!", NotificationSystem.NotificationType.Info);
             return;
@@ -540,7 +544,7 @@ public class ShopScreenUI : MonoBehaviour
     private void GrantRemoveAds()
     {
         // Salva a flag de remoção de anúncios permanentemente
-        PlayerPrefs.SetInt("remove_ads", 1);
+        PlayerPrefs.SetInt(PrefKeyRemoveAds, 1);
         PlayerPrefs.Save();
 
         if (profileManager != null)
@@ -560,7 +564,7 @@ public class ShopScreenUI : MonoBehaviour
     private void GrantStarterPack()
     {
         // Marca pack como comprado para não exibir novamente
-        PlayerPrefs.SetInt("starter_pack_purchased", 1);
+        PlayerPrefs.SetInt(PrefKeyStarterPack, 1);
         PlayerPrefs.Save();
 
         profileManager?.AddCoins(200);
@@ -605,8 +609,8 @@ public class ShopScreenUI : MonoBehaviour
     {
         int coins = profileManager?.CurrentProfile?.coins ?? 0;
         bool adsRemoved = (profileManager?.CurrentProfile?.adsRemoved ?? false)
-                          || PlayerPrefs.GetInt("remove_ads", 0) == 1;
-        bool starterBought = PlayerPrefs.GetInt("starter_pack_purchased", 0) == 1;
+                          || PlayerPrefs.GetInt(PrefKeyRemoveAds, 0) == 1;
+        bool starterBought = PlayerPrefs.GetInt(PrefKeyStarterPack, 0) == 1;
 
         if (buyLivesButton != null)
             buyLivesButton.interactable = coins >= livesCost;

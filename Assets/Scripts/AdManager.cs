@@ -397,8 +397,8 @@ public class AdManager : MonoBehaviour
             isShowingAd = false;
             Debug.Log($"[AdManager] Recompensa concedida: {reward.Amount} {reward.Type}");
 
-            // Valida a recompensa via AdSecurityValidator antes de conceder
-            if (securityValidator != null && !securityValidator.TryRecordAdView())
+            // Valida com o validador de segurança antes de conceder a recompensa
+            if (securityValidator != null && !securityValidator.CanShowAd())
             {
                 Debug.LogWarning("[AdManager] Validação de segurança falhou. Recompensa negada.");
                 onComplete?.Invoke(false);

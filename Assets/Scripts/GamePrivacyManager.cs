@@ -98,6 +98,10 @@ public class GamePrivacyManager : MonoBehaviour
         {
             privacyAccepted = false;
             personalizedAdsConsent = false;
+            // Persiste o reset imediatamente para evitar inconsistências se o app fechar antes do usuário responder
+            PlayerPrefs.SetInt(KeyPrivacyAccepted, 0);
+            PlayerPrefs.SetInt(KeyPersonalizedAds, 0);
+            PlayerPrefs.Save();
         }
     }
 

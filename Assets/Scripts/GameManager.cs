@@ -29,6 +29,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private NotificationSystem notificationSystem;
     [SerializeField] private GameSessionManager sessionManager;
 
+    [Header("Sistemas Play Store")]
+    [SerializeField] private GamePrivacyManager privacyManager;
+    [SerializeField] private GooglePlayReviewManager reviewManager;
+    [SerializeField] private NotificationManager notificationManager;
+
     // -----------------------------------------------------------------------
     // Eventos globais
     // -----------------------------------------------------------------------
@@ -48,6 +53,9 @@ public class GameManager : MonoBehaviour
     public AdManager           AdManager         => adManager;
     public NotificationSystem  NotificationSystem => notificationSystem;
     public GameSessionManager  SessionManager    => sessionManager;
+    public GamePrivacyManager  PrivacyManager    => privacyManager;
+    public GooglePlayReviewManager ReviewManager => reviewManager;
+    public NotificationManager NotificationManager => notificationManager;
 
     // -----------------------------------------------------------------------
     // Inicialização
@@ -90,6 +98,15 @@ public class GameManager : MonoBehaviour
 
         if (sessionManager == null)
             sessionManager = GetComponentInChildren<GameSessionManager>();
+
+        if (privacyManager == null)
+            privacyManager = GetComponentInChildren<GamePrivacyManager>();
+
+        if (reviewManager == null)
+            reviewManager = GetComponentInChildren<GooglePlayReviewManager>();
+
+        if (notificationManager == null)
+            notificationManager = GetComponentInChildren<NotificationManager>();
 
         Debug.Log("[GameManager] Sistemas inicializados com sucesso.");
     }

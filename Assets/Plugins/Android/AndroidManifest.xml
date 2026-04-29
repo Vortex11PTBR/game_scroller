@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    AndroidManifest.xml — Configuração do app para publicação na Google Play Store
+    Caminho: Assets/Plugins/Android/AndroidManifest.xml
+
+    IMPORTANTE: Antes de publicar, substitua:
+      - "com.SEUNOME.gamescroller" pelo Bundle Identifier real do seu app
+      - "ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX" pelo App ID real do AdMob
+        (obtido em admob.google.com após criar o app)
+
+    Para usar IDs de teste AdMob (desenvolvimento):
+      App ID de teste: ca-app-pub-3940256099942544~3347511713
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.SEUNOME.gamescroller">
+
+    <!-- ================================================================
+         PERMISSÕES NECESSÁRIAS
+         ================================================================ -->
+
+    <!-- Acesso à internet (obrigatório para anúncios e economia) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Verificação de estado da rede (otimização de carregamento de ads) -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Cobranças via Google Play Billing (compras in-app / Unity IAP) -->
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+    <!-- Identificador de anúncios do Google (obrigatório para AdMob no Android 13+) -->
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+
+    <!-- Vibração (feedback háptico nos jogos) -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- ================================================================
+         CONFIGURAÇÃO DA APLICAÇÃO
+         ================================================================ -->
+    <application
+        android:label="@string/app_name"
+        android:icon="@mipmap/app_icon"
+        android:theme="@style/UnityThemeSelector"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true">
+
+        <!-- ============================================================
+             ADMOB — App ID
+             Substitua pelo App ID real obtido no painel AdMob.
+             ID de teste: ca-app-pub-3940256099942544~3347511713
+             ============================================================ -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX"/>
+
+        <!--
+             Desabilita medição automática do AdMob.
+             O GamePrivacyManager controla quando inicializar (após consentimento GDPR/LGPD).
+        -->
+        <meta-data
+            android:name="com.google.android.gms.ads.DELAY_APP_MEASUREMENT_INIT"
+            android:value="true"/>
+
+        <!-- ============================================================
+             UNITY PLAYER ACTIVITY — Activity principal do Unity
+             ============================================================ -->
+        <activity
+            android:name="com.unity3d.player.UnityPlayerActivity"
+            android:theme="@style/UnityThemeSelector"
+            android:screenOrientation="portrait"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!--
+                Deep Link Handler — Intercepta links do tipo gamescroller://
+                Usado pelo PlayStoreDeepLinkHandler.cs para navegação via compartilhamento
+            -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="gamescroller" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+    <!-- ================================================================
+         VERSÕES DE SDK
+         Target SDK 34 (Android 14) — obrigatório pela Play Store desde agosto/2024
+         Min SDK 22 (Android 5.1) — ampla cobertura de dispositivos
+         ================================================================ -->
+    <uses-sdk
+        android:minSdkVersion="22"
+        android:targetSdkVersion="34" />
+
+</manifest>

@@ -126,6 +126,10 @@ public class GameSessionManager : MonoBehaviour
         // Registra no perfil do jogador
         GameManager.Instance?.ProfileManager?.RegisterGameSession(result);
 
+        // Tenta solicitar avaliação da Play Store após sessão bem-sucedida
+        if (result.score > 0)
+            GameManager.Instance?.ReviewManager?.TryRequestReview();
+
         ShowResultPanel(result);
         OnSessionEnded?.Invoke(result);
 

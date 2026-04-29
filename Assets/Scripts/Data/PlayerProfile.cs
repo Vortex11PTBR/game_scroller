@@ -80,16 +80,18 @@ public class PlayerProfile
         return xpForNext > 0 ? Mathf.Clamp01((float)xp / xpForNext) : 0f;
     }
 
-    // Adiciona XP e sobe de nível se necessário; retorna true se subiu de nível
+    // Adiciona XP pelo jogo e sobe de nível se necessário; retorna true se subiu de nível
     public bool AddXp(int amount)
     {
         xp += amount;
         bool leveledUp = false;
-        while (xp >= GetXpForNextLevel())
+        int xpNeeded = GetXpForNextLevel();
+        while (xp >= xpNeeded)
         {
-            xp -= GetXpForNextLevel();
+            xp -= xpNeeded;
             nivel++;
             leveledUp = true;
+            xpNeeded = GetXpForNextLevel();
         }
         return leveledUp;
     }

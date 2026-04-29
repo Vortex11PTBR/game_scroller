@@ -255,8 +255,8 @@ public class GameSessionManager : MonoBehaviour
         Debug.Log($"[GameSessionManager] Compartilhando resultado: {currentGameData?.titulo}");
 
         #if UNITY_ANDROID || UNITY_IOS
-        // Exemplo de compartilhamento via plugin nativo
-        // NativeShare.Share($"Joguei {currentGameData?.titulo} e fiz {lastResult?.score} pontos! Baixe Game Scroller!");
+        // Exemplo de compartilhamento via plugin nativo:
+        // NativeShare.Share($"Joguei {currentGameData?.titulo} no Game Scroller! Baixe agora.");
         #endif
     }
 

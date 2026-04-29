@@ -23,7 +23,7 @@ public class ShopScreenUI : MonoBehaviour
     [SerializeField] private List<CoinPackageConfig> coinPackages = new List<CoinPackageConfig>
     {
         new CoinPackageConfig { label = "Iniciante", coins = 100,   priceDisplay = "R$ 1,99",  cardColor = new Color(0.3f, 0.7f, 0.9f) },
-        new CoinPackageConfig { label = "Popular",   coins = 500,   priceDisplay = "R$ 4,99",  cardColor = new Color(0.3f, 0.8f, 0.3f), isBestValue = false },
+        new CoinPackageConfig { label = "Popular",   coins = 500,   priceDisplay = "R$ 4,99",  cardColor = new Color(0.3f, 0.8f, 0.3f) },
         new CoinPackageConfig { label = "Gamer",     coins = 2000,  priceDisplay = "R$ 14,99", cardColor = new Color(0.9f, 0.6f, 0.1f), isBestValue = true },
         new CoinPackageConfig { label = "Lendário",  coins = 10000, priceDisplay = "R$ 49,99", cardColor = new Color(0.9f, 0.2f, 0.7f) }
     };

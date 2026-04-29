@@ -129,7 +129,8 @@ public class LivesUI : MonoBehaviour
 
         // Timer de recuperação
         bool isAtMax  = lives >= 20;
-        bool hasTimer = !isAtMax && lives < 20;
+        // Simplify: hasTimer is simply the negation of isAtMax
+        bool hasTimer = !isAtMax;
 
         if (timerPanel != null)
             timerPanel.SetActive(hasTimer);

@@ -92,6 +92,7 @@ public class EndlessRunnerGame : MiniGameBase
         Time.timeScale = 1f;
     }
 
+    // Game over é disparado via Die() → TriggerGameOver(); este override é intencional vazio.
     protected override void OnPlayerDied() { }
 
     // -----------------------------------------------------------------------

@@ -128,6 +128,7 @@ public class TetrisGame : MiniGameBase
         Time.timeScale = 1f;
     }
 
+    // Game over é disparado via GameOver() → TriggerGameOver(); este override é intencional vazio.
     protected override void OnPlayerDied() { }
 
     // -----------------------------------------------------------------------

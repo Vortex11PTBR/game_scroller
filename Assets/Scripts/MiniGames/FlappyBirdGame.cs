@@ -215,7 +215,7 @@ public class FlappyBirdGame : MiniGameBase
         PipeController controller = pipe.GetComponent<PipeController>();
         if (controller == null) controller = pipe.AddComponent<PipeController>();
 
-        controller.Initialize(gap, pipeSpeed, pipeDespawnX, OnBirdPassedPipe, this);
+        controller.Initialize(gap, pipeSpeed, pipeDespawnX, OnBirdPassedPipe, this, birdTransform);
 
         activePipes.Add(pipe);
     }
@@ -360,7 +360,7 @@ public class PipeController : MonoBehaviour
     private float topPipeBottom;
     private float bottomPipeTop;
 
-    public void Initialize(float gap, float moveSpeed, float destroyX, System.Action onPassCallback, FlappyBirdGame game)
+    public void Initialize(float gap, float moveSpeed, float destroyX, System.Action onPassCallback, FlappyBirdGame game, Transform bird = null)
     {
         speed     = moveSpeed;
         despawnX  = destroyX;
@@ -378,7 +378,8 @@ public class PipeController : MonoBehaviour
         topPipeBottom    = top    != null ? top.position.y    - 5f  : float.MaxValue;
         bottomPipeTop    = bottom != null ? bottom.position.y + 5f  : float.MinValue;
 
-        birdTransform = GameObject.FindWithTag("Bird")?.transform;
+        // Usa o transform passado por parâmetro ou busca por tag como fallback (só no Initialize)
+        birdTransform = bird != null ? bird : GameObject.FindWithTag("Bird")?.transform;
     }
 
     private void Update()
